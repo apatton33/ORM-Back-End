@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     const dataForCategories = await Category.findAll({
       include: [{ model: Product }],
     });
-    res.status(200).json(!dataForCategories);
+    res.status(200).json(dataForCategories);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -34,7 +34,7 @@ router.get('/:id', async (req, res) => {
       return;
     }
 
-    res.status(200).json(!dataForCategories);
+    res.status(200).json(dataForCategories);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -42,17 +42,15 @@ router.get('/:id', async (req, res) => {
 
 
 //   // create a new category
-
 router.post('/', async (req, res) => {
   try {
-    const dataForCategories = await Category.create({
-      category_id: req.body.category_id,
-    });
-    res.status(200).json(!dataForCategories);
+    const dataForCategories = await Category.create(req.body);
+    res.status(200).json(dataForCategories);
   } catch (err) {
     res.status(400).json(err);
   }
 });
+
 
 //   // update a category by its `id` value
 
@@ -60,38 +58,38 @@ router.put('/:id', async (req, res) => {
   try {
     const dataForCategories = await Category.update(req.body, {
       where: {
-        id: req.params.id,
+        id: req.params.id
       }
     });
     if (!dataForCategories) {
       res.status(404).json({ message: 'No Category found with that id!' });
       return;
     }
-    res.status(200).json(!dataForCategories);
+    res.status(200).json(dataForCategories);
   } catch (err) {
     res.status(500).json(err);
   }
 });
-// router.delete('/:id', (req, res) => {
-//   // delete a category by its `id` value
-// });
+
+//delete category by its id.
 router.delete('/:id', async (req, res) => {
   try {
-    const dataForCategories = await Category.destroy({
+    const dataForCategories = await Tag.destroy({
       where: {
         id: req.params.id,
       },
     });
 
     if (!dataForCategories) {
-      res.status(404).json({ message: 'Found no Category with that id!' });
+      res.status(404).json({ message: 'Found no Tag with that id!' });
       return;
     }
 
-    res.status(200).json(!dataForCategories);
+    res.status(200).json(dataForCategories);
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
 
 module.exports = router;
