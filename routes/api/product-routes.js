@@ -52,14 +52,14 @@ router.get('/:id', async (req, res) => {
 //     }
 
 router.post('/', async (req, res) => {
-  try {
-    const dataForProducts = await Product.create({
-      product_id: req.body.product_id,
-    });
-    res.status(200).json(dataForProducts);
-  } catch (err) {
-    res.status(400).json(err);
-  }
+  // try {
+  //   const dataForProducts = await Product.create({
+  //     product_id: req.body.product_id,
+  //   });
+  //   res.status(200).json(dataForProducts);
+  // } catch (err) {
+  //   res.status(400).json(err);
+  // }
   Product.create(req.body)
     .then((product) => {
       if (req.body.tagIds.length) {
